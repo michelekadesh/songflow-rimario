@@ -64,6 +64,6 @@ CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). Fonte: **Wikizio
 dump del 1 novembre 2026.
 
 Dati modificati: tolti refusi, errori di estrazione e parole offensive; espressioni di più parole spostate in fondo.
-Lo script `genera_sinonimi.py` e l'elenco `offese_sinonimi.txt` sono offerti con la stessa licenza.
+Lo script `genera_sinonimi.py` e l'elenco `offese_sinonimi.txt` (coppie da togliere solo insieme; le parole da togliere sempre stanno in `offese.txt`) sono offerti con la stessa licenza.
 
 Offerto così com'è, senza garanzie. Le liste appartengono alla pagina del Wikizionario, non al singolo significato.

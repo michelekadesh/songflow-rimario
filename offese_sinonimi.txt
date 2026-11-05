@@ -1,26 +1,6 @@
-# Offese che il generatore dei sinonimi deve togliere, oltre a offese.txt.
-# Una parola da sola: tolta sempre, perché non ha un significato neutro.
-# "testa > parola": tolta solo come suggerimento di quella testa, perché altrove ha un significato normale.
-# Le volgarità non offensive restano.
-checca
-culattone
-culattoni
-lella
-sodomita
-pederasta
-uranista
-bagascia
-bagascione
-baldracca
-battona
-mignotta
-sgualdrina
-donnaccia
-mangiacrauti
-polentone
-handicappato
-handicappati
-minorato
+# Coppie che il generatore dei sinonimi toglie, oltre alle parole di offese.txt.
+# "testa > parola": tolta solo come suggerimento di quella testa, perché altrove ha un significato normale
+# ("finocchio" è anche un ortaggio). Le parole da togliere sempre stanno in offese.txt.
 omosessuale > finocchio
 omosessuale > invertito
 omosessuale > diverso

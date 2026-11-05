@@ -127,6 +127,13 @@ def offensive_wiktionary(percorso):
     return {senza_accenti(p) for p, (tutti, offensivi) in sensi.items() if tutti and tutti == offensivi}
 
 
+def variante(forma, base):
+    """Vero se la forma comincia come la parola base: "handicappati" e "handicappato"."""
+    forma, base = senza_accenti(forma), senza_accenti(base)
+    radice = max(3, len(base) - 2)
+    return forma[:radice] == base[:radice]
+
+
 def carica_offese(percorso):
     """Le parole da togliere sempre e le coppie "testa > parola" da togliere solo insieme."""
     parole = set()
@@ -235,8 +242,11 @@ NON_ATTESI = {
     "sole": ["solitarie", "isolate", "pure"], "cuore": ["fedddezza"],
     "omosessuale": ["culattone", "checca", "finocchio", "invertito"],
     "prostituta": ["vacca", "mignotta", "sgualdrina"], "disabile": ["handicappato", "impedito"],
+    "disabili": ["handicappati"], "invalidi": ["handicappati", "minorati"],
 }
 FORME_ATTESE = {"amori": "amore", "piango": "piangere"}
+# Hanno anche un significato normale: un filtro troppo largo le toglierebbe.
+VOCI_ATTESE = ["cagna", "vacca", "finocchio"]
 
 
 def controlla(voci, forme):
@@ -254,6 +264,9 @@ def controlla(voci, forme):
         for parola in vietate:
             if parola in s or parola in c:
                 errori.append("%s: non deve contenere %s" % (testa, parola))
+    for parola in VOCI_ATTESE:
+        if parola not in voci:
+            errori.append("%s: deve esserci" % parola)
     for forma, lemma in FORME_ATTESE.items():
         if forme.get(forma) != lemma:
             errori.append("%s: deve mandare a %s, invece %s" % (forma, lemma, forme.get(forma)))
@@ -313,10 +326,18 @@ def main():
     pagine = carica_pagine(a.wikizionario)
     note, comuni = carica_rimario(a.rimario)
     # Una parola con tutti i sensi offensivi, in una qualunque delle due fonti, non entra.
-    offese = carica_offese(a.offese)[0] | offensive_wiktionary(a.wiktionary)
+    scritte_a_mano, _ = carica_offese(a.offese)
     aggiunte, coppie = carica_offese(a.offese_sinonimi)
-    offese |= aggiunte
+    scritte_a_mano |= aggiunte
+    offese = scritte_a_mano | offensive_wiktionary(a.wiktionary)
     offese |= {senza_accenti(t) for t, p in pagine.items() if p.sensi and p.sensi == p.sensi_offensivi}
+    # Come nel rimario: plurali e femminili di un'offesa scritta a mano ("handicappati") vanno via con lei.
+    # Solo le pagine che sono soltanto forme flesse: "checché" ha una voce sua e resta.
+    # Deve esserne una variante: il Wikizionario fa rimandare "cagna" anche a "donnaccia".
+    offese |= {
+        senza_accenti(t) for t, p in pagine.items()
+        if p.ha_forma and not p.ha_lemma and any(variante(t, l) and senza_accenti(l) in scritte_a_mano for l in p.lemmi)
+    }
     voci, forme = costruisci(pagine, note, comuni, offese, coppie, statistiche)
 
     errori = controlla(voci, forme)
