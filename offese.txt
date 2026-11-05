@@ -1,0 +1,31 @@
+# Parole offensive da togliere sempre dai suggerimenti (una per riga, con le loro forme).
+# Il generatore toglie già le voci che Wiktionary segna solo come offensive o spregiative:
+# questo elenco serve per ciò che sfugge. Le volgarità non offensive restano.
+negro
+negra
+negri
+negre
+frocio
+froci
+frocia
+froce
+ricchione
+ricchioni
+terrone
+terroni
+terrona
+terrone
+crucco
+crucchi
+giudeo
+giudei
+mongoloide
+mongoloidi
+storpio
+storpi
+troia
+troie
+puttana
+puttane
+zoccola
+zoccole
