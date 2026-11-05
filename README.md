@@ -1,4 +1,6 @@
-# Rimario italiano
+# Rimario italiano e sinonimi
+
+Due database separati: `rimario.sqlite` (rime) e `sinonimi.sqlite` (sinonimi e contrari).
 
 Il rimario dell'app SongFlow: un database SQLite con circa 150.000 parole italiane, con sillabe, posizione dell'accento, chiave di rima, chiave di assonanza e frequenza d'uso. Funziona senza internet.
 
@@ -36,3 +38,32 @@ Lo script `genera_rimario.py` e l'elenco `offese.txt` sono offerti con la stessa
 ## Avvertenze
 
 Offerto così com'è, senza garanzie. Parte degli accenti è calcolata con regole e può contenere errori: la colonna `origine` dice da dove viene ciascuno (1 Wiktionary, 2 tabelle di Wiktionary, 3 accento scritto, 4 flessione dal lemma, 5 regole). La licenza completa è in `LICENSE.txt`.
+
+# Sinonimi e contrari
+
+`sinonimi.sqlite` è un database SQLite con circa 40.000 parole italiane e i loro sinonimi e contrari, più una tabella
+che collega circa 21.000 forme flesse alla parola base.
+
+## Come rigenerarlo
+
+Serve solo Python 3 e `rimario.sqlite`. Fonti:
+
+- Wikizionario (estrazione Kaikki): https://kaikki.org/itwiktionary/Italiano/kaikki.org-dictionary-Italiano.jsonl
+- Wiktionary (lo stesso file del rimario), per riconoscere le parole offensive.
+
+Poi:
+
+    python3 genera_sinonimi.py --wikizionario italiano-it.jsonl --wiktionary italiano.jsonl \
+        --rimario rimario.sqlite --offese offese.txt --offese-sinonimi offese_sinonimi.txt \
+        --uscita sinonimi.sqlite
+
+## Licenza del database
+
+CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). Fonte: **Wikizionario**
+(https://it.wiktionary.org), autori del Wikizionario, CC BY-SA 4.0, tramite kaikki.org (wiktextract, Tatu Ylonen),
+dump del 1 novembre 2026.
+
+Dati modificati: tolti refusi, errori di estrazione e parole offensive; espressioni di più parole spostate in fondo.
+Lo script `genera_sinonimi.py` e l'elenco `offese_sinonimi.txt` sono offerti con la stessa licenza.
+
+Offerto così com'è, senza garanzie. Le liste appartengono alla pagina del Wikizionario, non al singolo significato.

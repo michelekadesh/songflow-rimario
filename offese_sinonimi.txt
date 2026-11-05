@@ -1,0 +1,33 @@
+# Offese che il generatore dei sinonimi deve togliere, oltre a offese.txt.
+# Una parola da sola: tolta sempre, perché non ha un significato neutro.
+# "testa > parola": tolta solo come suggerimento di quella testa, perché altrove ha un significato normale.
+# Le volgarità non offensive restano.
+checca
+culattone
+culattoni
+lella
+sodomita
+pederasta
+uranista
+bagascia
+bagascione
+baldracca
+battona
+mignotta
+sgualdrina
+donnaccia
+mangiacrauti
+polentone
+handicappato
+handicappati
+minorato
+omosessuale > finocchio
+omosessuale > invertito
+omosessuale > diverso
+gay > invertito
+prostituta > vacca
+disabile > impedito
+zingaro > pezzente
+zingaro > straccione
+zingaro > trasandato
+zingaro > trascurato
